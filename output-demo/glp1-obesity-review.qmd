@@ -1,0 +1,51 @@
+---
+title: "GLP-1 受體促效劑用於肥胖治療：系統性文獻回顧（範例稿）"
+subtitle: "由 robust-lit-review 流程試跑產出 — 示範用途"
+date: today
+lang: zh-Hant
+format:
+  pdf:
+    pdf-engine: xelatex
+    CJKmainfont: "Noto Serif CJK TC"
+    mainfont: "Noto Serif CJK TC"
+    toc: true
+    number-sections: true
+  docx:
+    toc: true
+bibliography: references.bib
+---
+
+::: {.callout-note}
+**這是示範稿**。資料以 PubMed 真實檢索結果產出（2026-06，*n* = 20 篇 Q1 文獻）。
+標示精確數字者均自原文摘要核對；其餘為方向性陳述，正式定稿前應對照全文確認。
+本檔示範 `/lit-review` 智慧層各章節的產出形態，並非完整投稿稿。
+:::
+
+# 前言 {#sec-intro}
+
+肥胖為全球性慢性疾病，長期以來藥物選擇有限且療效有限。近年來，升糖素類似胜肽-1（GLP-1）受體促效劑——以及兼具葡萄糖依賴性胰島素釋放胜肽（GIP）機轉的雙重促效劑——在減重幅度上達到過往藥物未及的水準，並逐步將療效終點從「體重」延伸至「心血管等硬性結局」。本回顧系統性檢索 PubMed 等資料庫，依期刊品質（Q1/Q2）與 DOI 驗證篩選證據，綜述其療效、維持效果、減重以外的結局、合併治療與整體證據強度。
+
+# 核心減重療效 {#sec-efficacy}
+
+在無糖尿病的肥胖成人中，每週皮下注射 semaglutide 2.4 mg 展現顯著療效：STEP 1 試驗（*n* = 1,961，治療 68 週）中，semaglutide 組體重自基線平均下降 **−14.9%**，相較安慰劑組僅 −2.4%[@step1]。雙重 GIP/GLP-1 促效劑 tirzepatide 進一步提升療效：SURMOUNT-1（*n* = 2,539，基線平均體重 104.8 kg、BMI 38.0，治療 72 週）最高劑量（15 mg）組達到約五分之一體重的減幅[@surmount1]。口服劑型亦展現潛力，OASIS 1 試驗顯示每日口服 semaglutide 50 mg 在過重/肥胖成人具臨床顯著減重效果[@oasis1]；STEP 5 則證實療效可維持至兩年[@step5]。
+
+# 維持治療與停藥復胖 {#sec-maintenance}
+
+GLP-1 受體促效劑的減重效益高度依賴持續用藥。STEP 4 與 SURMOUNT-4 均顯示：完成導入期後改用安慰劑者體重回升，持續用藥組則維持減重[@step4; @surmount4]。STEP 1 延伸研究進一步指出，停藥後體重與部分心血管代謝指標會朝基線回升[@step1ext]；一篇統合分析亦歸納停用 GLP-1 受體促效劑後體型逐步回復的趨勢[@discontinue]。臨床意涵為：此類藥物應視為慢性病的長期治療，而非短期療程。
+
+# 減重以外的硬性結局 {#sec-outcomes}
+
+療效已超越單純減重。SELECT 試驗（*n* = 17,604，具心血管病史、無糖尿病之過重/肥胖族群）證實 semaglutide 2.4 mg 可降低主要心血管不良事件[@select]。SURMOUNT-OSA 顯示 tirzepatide 改善阻塞性睡眠呼吸中止症[@surmountosa]；另有 NEJM 試驗顯示 semaglutide 可緩解肥胖合併膝骨關節炎的疼痛[@knee]。這些結果支持將適應症由「減重」擴展至共病管理。
+
+# 合併治療與機轉 {#sec-mechanism}
+
+GLP-1 受體促效劑與生活型態介入具加成性：一項隨機對照試驗顯示，運動合併 GLP-1 受體促效劑可降低代謝症候群嚴重度、腹部肥胖與發炎指標[@exercise]。機轉層面，tirzepatide 的雙重 GIP/GLP-1 作用被認為是其在血糖控制與減重上效果優於單一機轉藥物的基礎[@tzpmech]。
+
+# 整體證據強度 {#sec-evidence}
+
+近期大型統合分析鞏固了上述結論。發表於《Lancet》的肥胖藥物治療網絡統合分析中，tirzepatide 在減重效果上名列前茅[@lancetnma]；針對身體組成的網絡統合分析則比較了各 GLP-1/共促效劑對脂肪與肌肉量的影響[@bodycomp]。多篇針對無糖尿病肥胖族群的系統性回顧一致支持其療效與可接受的安全性[@eprac; @amjcard]。
+
+# 參考文獻 {.unnumbered}
+
+::: {#refs}
+:::
