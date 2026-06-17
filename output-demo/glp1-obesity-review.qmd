@@ -4,6 +4,13 @@ subtitle: "由 robust-lit-review 流程試跑產出 — 示範用途"
 author: "robust-lit-review pipeline"
 date: today
 lang: zh-Hant
+language:
+  crossref-sec-prefix: "小節"
+  toc-title-document: "目錄"
+  toc-title-website: "目錄"
+  section-title-abstract: "摘要"
+  callout-note-title: "注意"
+  callout-tip-title: "提示"
 format:
   pdf:
     pdf-engine: xelatex
