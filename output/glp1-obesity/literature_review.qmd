@@ -1,11 +1,21 @@
 ---
-title: "GLP-1 受體促效劑用於肥胖治療：系統性文獻回顧（範例稿）"
-subtitle: "由 robust-lit-review 流程試跑產出 — 示範用途"
+title: "GLP-1 受體促效劑用於肥胖治療"
+subtitle: "系統性文獻回顧（範例稿）"
 author: "robust-lit-review pipeline"
 date: today
 lang: zh-Hant
+abstract: |
+  **背景：** 肥胖為全球性慢性疾病，長期以來介於生活型態介入與減重手術之間的藥物選擇療效有限。升糖素類似胜肽-1（GLP-1）受體促效劑與兼具葡萄糖依賴性胰島素釋放胜肽（GIP）機轉的雙重促效劑，已將肥胖藥物治療的療效推升至過往未及的水準。
+
+  **方法：** 以 PubMed 為主要來源系統性檢索隨機對照試驗與系統性回顧／統合分析，經去重、期刊品質過濾（Q1/Q2）、DOI 驗證與平衡選文，最終納入 20 篇來自 Q1 期刊、經 DOI 驗證之文獻。
+
+  **結果：** 證據一致顯示 semaglutide 與 tirzepatide 在無糖尿病肥胖族群可達具臨床意義之體重下降（STEP 1：−14.9%），療效可維持至兩年並延伸至心血管（SELECT）、睡眠呼吸中止與骨關節炎等硬性結局；效益依賴持續用藥，停藥後傾向復胖。
+
+  **結論：** GLP-1／GIP 受體促效劑為肥胖治療帶來實質進展，應以慢性病長期治療之框架使用。tirzepatide 在現有網絡比較中減重幅度普遍居前。
+keywords: [GLP-1, tirzepatide, semaglutide, 肥胖, 系統性回顧]
 language:
   crossref-sec-prefix: "小節"
+  crossref-fig-title: "圖"
   toc-title-document: "目錄"
   toc-title-website: "目錄"
   section-title-abstract: "摘要"
@@ -14,13 +24,29 @@ language:
 format:
   pdf:
     pdf-engine: xelatex
+    latex-auto-install: false
+    documentclass: scrartcl
+    classoption: ["titlepage", "11pt"]
     CJKmainfont: "Noto Serif CJK TC"
     mainfont: "Noto Serif CJK TC"
+    sansfont: "Noto Sans CJK TC"
     toc: true
+    toc-depth: 2
     number-sections: true
-    geometry: margin=2.5cm
+    linestretch: 1.5
+    geometry:
+      - top=2.5cm
+      - bottom=2.5cm
+      - left=2.5cm
+      - right=2.5cm
+    colorlinks: true
+    linkcolor: "RoyalBlue"
+    urlcolor: "RoyalBlue"
+    toccolor: "Black"
+    fig-pos: "H"
   docx:
     toc: true
+    toc-depth: 2
     number-sections: true
 bibliography: references.bib
 ---
@@ -30,10 +56,6 @@ bibliography: references.bib
 標示精確數字者均自原文摘要核對；其餘為方向性陳述，正式定稿前應對照全文確認。
 本檔示範 `/lit-review` 智慧層各章節的產出形態，並非完整投稿稿。
 :::
-
-# 摘要 {.unnumbered}
-
-升糖素類似胜肽-1（GLP-1）受體促效劑與兼具葡萄糖依賴性胰島素釋放胜肽（GIP）機轉的雙重促效劑，已將肥胖藥物治療的療效推升至過往未及的水準，並將臨床終點由「體重下降」延伸至「心血管等硬性結局」。本系統性回顧綜整 20 篇來自 Q1 期刊、經 DOI 驗證的隨機對照試驗與統合分析，涵蓋核心減重療效、停藥後復胖、減重以外的結局、合併治療機轉與整體證據強度，並摘述安全性與臨床意涵。整體證據一致顯示：semaglutide 與 tirzepatide 在無糖尿病的肥胖族群可達到具臨床意義的體重下降，效益依賴持續用藥，且 tirzepatide 在多數頭對頭與網絡比較中減重幅度居前。
 
 # 前言 {#sec-intro}
 
@@ -50,12 +72,10 @@ GLP-1 受體促效劑透過促進葡萄糖依賴性胰島素分泌、延緩胃�
 - **納入**：Q1 期刊、人類受試者、肥胖或過重成人、報告體重或心血管代謝結局的 RCT 或 SR/MA。
 - **排除**：非 Q1 期刊、純第二型糖尿病且未報告肥胖結局、動物或機轉性研究、會議摘要。
 
-## 品質與驗證流程（PRISMA 精神）
-檢索結果經四道關卡：**①去重 → ②期刊品質過濾（CiteScore/SJR，僅留 Q1/Q2）→ ③DOI 經 doi.org handle API 驗證 → ④平衡選文**（依五個子主題各取代表性文獻）。本範例最終納入 20 篇文獻。
+## 篩選流程
+檢索結果經四道關卡：**①去重 → ②期刊品質過濾（CiteScore/SJR，僅留 Q1/Q2）→ ③DOI 經 doi.org handle API 驗證 → ④平衡選文**（依五個子主題各取代表性文獻）。完整流程如 @fig-prisma。本範例最終納入 20 篇文獻。
 
-::: {.callout-tip}
-本範例為流程示範，未完整繪製 PRISMA 流程圖；正式產出時 `/lit-review` 會輸出各階段篩除數量與流程圖。
-:::
+![PRISMA 文獻篩選流程圖（本範例中間階段數字為示範用途；正式產出時由流程自動計數）](prisma-flow.png){#fig-prisma width=90% fig-align="center"}
 
 # 核心減重療效 {#sec-efficacy}
 
@@ -104,7 +124,7 @@ GLP-1 受體促效劑與**生活型態介入具加成性**：一項隨機對照�
 GLP-1 受體促效劑（semaglutide）與雙重 GIP/GLP-1 促效劑（tirzepatide）為無糖尿病肥胖族群帶來具臨床意義的減重，療效可維持至兩年、並延伸至心血管、睡眠呼吸中止與骨關節炎等硬性結局。其效益依賴持續用藥，停藥後傾向復胖，故應以慢性病長期治療的框架使用。合併生活型態介入具加成性，而 tirzepatide 在現有網絡比較中減重幅度普遍居前。
 
 ## 研究限制 {.unnumbered}
-本範例稿之檢索以 PubMed 單一資料庫示範，未納入 Scopus／Embase；未完整繪製 PRISMA 流程圖；部分章節採方向性陳述而非逐一列出效應量。正式產出時，`/lit-review` 流程會跨資料庫檢索、輸出 PRISMA 流程與完整數據表，並對每筆 DOI 進行線上驗證。
+本範例稿之檢索以 PubMed 單一資料庫示範，未納入 Scopus／Embase；@fig-prisma 中間階段數字為示範用途；部分章節採方向性陳述而非逐一列出效應量。正式產出時，`/lit-review` 流程會跨資料庫檢索、自動計數 PRISMA 各階段並輸出完整數據表，並對每筆 DOI 進行線上驗證。
 
 # 參考文獻 {.unnumbered}
 
