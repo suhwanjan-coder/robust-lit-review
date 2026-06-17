@@ -18,6 +18,10 @@ output*/*.pdf
 output*/*.docx
 output*/*.html
 output*/*.tex
+output*/*.aux
+output*/*.log
+output*/*.toc
+output*/*_files/
 manuscript/*.pdf
 manuscript/*.docx
 manuscript/*.html
