@@ -132,6 +132,37 @@ lit-review build-site <path>
 
 ---
 
+## 中文 PDF 字型設定
+
+Quarto 預設用 LaTeX 排版,**內建引擎不認中文字**,所以若你要輸出含中文的 PDF,要改用 **XeLaTeX** 並指定一個有中文的字型,否則中文會變空白或報錯。
+
+在 `.qmd` 檔最上方的 YAML 加上:
+
+```yaml
+---
+title: "我的文獻回顧"
+format:
+  pdf:
+    pdf-engine: xelatex
+    mainfont: "Noto Serif CJK TC"     # 內文中文字型
+    sansfont: "Noto Sans CJK TC"
+    monofont: "Noto Sans Mono CJK TC"
+    CJKmainfont: "Noto Serif CJK TC"  # 確保 CJK 字元用此字型
+---
+```
+
+字型要先裝在系統上,挑一個你有的即可:
+
+| 系統 | 建議字型 | 怎麼裝 |
+|---|---|---|
+| macOS | `PingFang TC`、`Noto Serif CJK TC` | 系統內建 / 從 Google Noto 下載 |
+| Windows | `Microsoft JhengHei`(微軟正黑)、`Noto Serif CJK TC` | 系統內建 / 下載 |
+| Linux | `Noto Serif CJK TC` | `sudo apt install fonts-noto-cjk` |
+
+> 小技巧:先用 `--no-render` 只產生 `.qmd`,把上面的字型設定加好,再手動 `quarto render output/literature_review.qmd --to pdf` 確認中文正常,之後就能放心整批渲染。DOCX 輸出不受此限,中文預設就正常。
+
+---
+
 ## 跟上游同步
 
 本 repo 是 `htlin222/robust-lit-review` 的 fork。要拉原作者最新更新：
