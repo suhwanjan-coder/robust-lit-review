@@ -79,7 +79,7 @@ When the user wants to explore/refine their topic before running:
 2. **Generate search terms** — Primary terms, synonyms, MeSH/Emtree terms, Boolean queries
 3. **Test queries** — Use the APIs to check result counts per database:
    ```bash
-   cd /Users/htlin/robust-lit-review && source .venv/bin/activate
+   cd <repo root, wherever this skill is installed> && source .venv/bin/activate  # Windows: .venv\Scripts\activate
    python -c "
    import asyncio
    from litreview.config import get_config
@@ -101,8 +101,9 @@ Execute these stages sequentially. Use subagents for parallelizable steps.
 
 ### Stage 1: Setup
 ```bash
-cd /Users/htlin/robust-lit-review
+cd <repo root, wherever this skill is installed>
 source .venv/bin/activate 2>/dev/null || (uv venv && source .venv/bin/activate && uv pip install -e ".")
+# Windows: .venv\Scripts\activate instead of .venv/bin/activate
 ```
 
 ### Stage 2: Search (parallelize across databases)
@@ -267,7 +268,7 @@ It also generates specific fix suggestions in natural language.
 
 **Repair agent prompt template:**
 ```
-Read /Users/htlin/robust-lit-review/output/sections/{filename}
+Read <repo root>/output/sections/{filename}
 The PRISMA 2020 audit found gaps. ADD the missing content without rewriting.
 Required fixes:
 {fix_instructions}

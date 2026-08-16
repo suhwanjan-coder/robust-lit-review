@@ -62,9 +62,10 @@ class PubMedClient:
             "db": "pubmed",
             "retmode": "json",
             "retmax": max_results,
-            "api_key": self.api_key,
             "term": term,
         }
+        if self.api_key:
+            params["api_key"] = self.api_key
         resp = await self._client.get("/esearch.fcgi", params=params)
         resp.raise_for_status()
         data = resp.json()
@@ -84,8 +85,9 @@ class PubMedClient:
             "retmode": "xml",
             "rettype": "abstract",
             "id": ",".join(pmids),
-            "api_key": self.api_key,
         }
+        if self.api_key:
+            params["api_key"] = self.api_key
         resp = await self._client.get("/efetch.fcgi", params=params)
         resp.raise_for_status()
         return resp.text
