@@ -1,0 +1,66 @@
+---
+title: "GLP-1 receptor agonists and metabolic dysfunction-associated steatotic liver disease: A Systematic Review (2016-2026)"
+subtitle: "A Systematic Literature Review"
+date: "2026-08-23"
+author: "Automated Literature Review Pipeline"
+format:
+  pdf:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    colorlinks: true
+    cite-method: citeproc
+    documentclass: article
+    geometry:
+      - margin=1in
+    fontsize: 11pt
+    linestretch: 1.5
+  docx:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    theme: cosmo
+bibliography: references.bib
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/american-medical-association.csl
+---
+
+# Abstract
+
+{{< include sections/00-abstract.qmd >}}
+
+# Introduction
+
+{{< include sections/01-introduction.qmd >}}
+
+# Methods
+
+{{< include sections/02-methods.qmd >}}
+
+# Pathophysiology and Mechanistic Rationale
+
+{{< include sections/03-pathophysiology-mechanisms.qmd >}}
+
+# GLP-1 Receptor Agonist Monotherapy: Efficacy and Evidence
+
+{{< include sections/04-glp1-monotherapy-efficacy.qmd >}}
+
+# Dual and Triple Agonists: Tirzepatide and Emerging Polyagonists
+
+{{< include sections/05-dual-triple-agonists.qmd >}}
+
+# Cardiometabolic Comorbidities and Special Clinical Contexts
+
+{{< include sections/06-comorbidities-special-populations.qmd >}}
+
+# Discussion and Future Directions
+
+{{< include sections/07-discussion.qmd >}}
+
+# References
+
+::: {#refs}
+:::

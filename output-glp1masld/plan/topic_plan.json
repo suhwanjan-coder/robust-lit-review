@@ -1,0 +1,91 @@
+{
+  "categories": [
+    {
+      "name": "epidemiology_burden",
+      "keywords": ["prevalence", "burden", "leading cause of chronic liver disease", "global health", "epidemiology", "worldwide", "morbidity and mortality", "affecting more than one-third of adults"]
+    },
+    {
+      "name": "pathophysiology_mechanism",
+      "keywords": ["insulin resistance", "glucagon", "inflammation", "fibrosis progression", "microbiota", "choline", "pathophysiology", "hepatic triglycerides", "shared pathways", "multi-receptor agonism"]
+    },
+    {
+      "name": "diagnosis_staging",
+      "keywords": ["magnetic resonance elastography", "at-risk mash", "imaging", "risk stratification", "pnpla3", "liver fat content", "genetic hepatic steatosis", "noninvasive", "definition of at-risk mash"]
+    },
+    {
+      "name": "glp1_monotherapy",
+      "keywords": ["semaglutide", "liraglutide", "glp-1 receptor agonist", "glp-1ra", "placebo-controlled trials", "weight loss", "glycemic control", "grade evidence assessment", "nash"]
+    },
+    {
+      "name": "dual_triple_agonists",
+      "keywords": ["tirzepatide", "gip", "glucagon receptor signaling", "polyagonist", "dual agonist", "triple agonist", "multiagonist", "surpass-3", "hokkaido-tzp"]
+    },
+    {
+      "name": "cardiometabolic_comorbidities",
+      "keywords": ["cardiovascular-kidney-liver-metabolic", "coronary artery disease", "chronic kidney disease", "cardiometabolic continuum", "heart failure", "atherosclerotic cardiovascular disease", "ckm syndrome", "heart-liver co-management"]
+    },
+    {
+      "name": "special_populations_safety",
+      "keywords": ["endoscopy", "gastric stasis", "aspiration risk", "inflammatory bowel disease", "cirrhosis", "hepatocellular carcinoma", "peri-procedural guidance", "diabetes and cirrhosis"]
+    },
+    {
+      "name": "comparator_combination_therapies",
+      "keywords": ["fibrates", "sglt2 inhibitor", "resmetirom", "sodium-glucose cotransporter-2", "combination therapy", "pharmacologic management", "metald", "alcohol-associated liver disease"]
+    },
+    {
+      "name": "clinical_guidelines_definitions",
+      "keywords": ["clinical practice guidelines", "masld", "mash", "national recommendations", "diagnosis and management", "nomenclature", "definition", "risk stratification and treatment"]
+    }
+  ],
+  "sections": [
+    {
+      "filename": "01-introduction.qmd",
+      "heading": "# Introduction",
+      "subtopics": ["epidemiology_burden", "pathophysiology_mechanism", "clinical_guidelines_definitions"],
+      "word_target": "1,200-1,500",
+      "writing_instructions": "Open with the current MASLD/MASH nomenclature shift (from NAFLD/NASH) and its epidemiological weight: state that MASLD affects roughly one-third of adults worldwide and is the leading cause of chronic liver disease, driven by obesity, insulin resistance, and type 2 diabetes. Introduce metabolic dysfunction-associated steatohepatitis (MASH) as the progressive inflammatory/fibrotic form and briefly define 'at-risk MASH'. Summarize the core pathophysiology linking incretin biology to hepatic fat: insulin resistance, glucagon dysregulation, and multi-organ crosstalk (the cardiovascular-kidney-liver-metabolic, CKLM, continuum). Introduce GLP-1 receptor agonists (semaglutide, liraglutide) and dual/triple incretin-based agonists (tirzepatide and GIP/glucagon co-agonists) as a pharmacologic class originally developed for glycemic control that now shows hepatic, weight-loss, and cardiometabolic benefits. State the review's objective: synthesizing evidence on GLP-1RA and multi-agonist efficacy, safety, and positioning for MASLD/MASH given the absence (until recently) of approved pharmacotherapies. End with a roadmap of the review's structure."
+    },
+    {
+      "filename": "02-methods.qmd",
+      "heading": "# Methods",
+      "subtopics": [],
+      "word_target": "600-800",
+      "writing_instructions": "Describe the PRISMA-based systematic review methodology used to assemble this corpus: databases searched (e.g., PubMed), search terms combining 'GLP-1 receptor agonist' / 'tirzepatide' / 'semaglutide' with 'MASLD' / 'MASH' / 'steatotic liver disease', date range, and validation process (100 validated articles from which this sample of 20 titles/abstracts is drawn). Describe inclusion/exclusion criteria: human studies (RCTs, real-world/observational studies, systematic reviews/meta-analyses, and narrative reviews/guidelines) addressing GLP-1RA or related incretin-based therapy in the context of MASLD/MASH or closely related metabolic-hepatic outcomes; exclusion of purely preclinical/animal studies unless mechanistic context is needed. Note the PRISMA flow diagram (identification, screening, eligibility, inclusion) and any quality/risk-of-bias assessment approach. Keep this section procedural and free of results interpretation."
+    },
+    {
+      "filename": "03-pathophysiology-mechanisms.qmd",
+      "heading": "# Pathophysiology and Mechanistic Rationale",
+      "subtopics": ["pathophysiology_mechanism", "diagnosis_staging"],
+      "word_target": "900-1,100",
+      "writing_instructions": "Detail the mechanistic basis for incretin-based therapy in MASLD/MASH: the role of glucagon dysregulation alongside insulin resistance in type 2 diabetes and hepatic steatosis; multi-receptor agonism (GLP-1/GIP/glucagon) and microbiota-metabolite convergence as an explanation for why GLP-1RA monotherapy shows limited efficacy in advanced fibrosis or metabolically milder populations; the PNPLA3 I148M genetic variant's influence on liver fat response to therapy (referencing SURPASS-3 MRI post hoc data); and choline's emerging role in hepatic triglyceride regulation as an adjacent metabolic pathway. Cover diagnostic and staging tools used to identify treatment-relevant populations: magnetic resonance elastography (MRE)-based simplified at-risk MASH definitions, and how imaging-based stratification guides eligibility for resmetirom and semaglutide therapy. Connect mechanism to clinical trial design choices discussed in later sections."
+    },
+    {
+      "filename": "04-glp1-monotherapy-efficacy.qmd",
+      "heading": "# GLP-1 Receptor Agonist Monotherapy: Efficacy and Evidence",
+      "subtopics": ["glp1_monotherapy"],
+      "word_target": "1,100-1,300",
+      "writing_instructions": "Synthesize placebo-controlled trial evidence for semaglutide and other single-target GLP-1RAs in MASLD/MASH, including systematic review/meta-analysis findings with GRADE evidence assessment on histologic and biochemical endpoints (steatosis resolution, fibrosis, ALT/AST, liver fat content). Discuss effect sizes on weight loss and glycemic control as co-primary drivers of hepatic benefit. Address heterogeneity across studies (population severity, treatment duration, outcome definitions) and the evidence gap in advanced fibrosis/cirrhosis populations. Note the historical context of no approved pharmacotherapy for NAFLD/NASH prior to these agents and how GLP-1RA evidence is reshaping treatment guidelines."
+    },
+    {
+      "filename": "05-dual-triple-agonists.qmd",
+      "heading": "# Dual and Triple Agonists: Tirzepatide and Emerging Polyagonists",
+      "subtopics": ["dual_triple_agonists"],
+      "word_target": "1,100-1,300",
+      "writing_instructions": "Cover the mechanistic and clinical case for multi-receptor agonism beyond single-target GLP-1RA: tirzepatide (dual GIP/GLP-1 receptor agonist) real-world and trial evidence on hepatic steatosis and metabolic indices, including the SURPASS-3 MRI substudy on liver fat content reduction versus insulin degludec, real-world multicenter data on tirzepatide in obesity-related MASLD, and switch studies such as the Hokkaido-TZP study evaluating conversion from GLP-1RA to tirzepatide in high-MASLD-risk type 2 diabetes patients. Extend to triple agonists and glucagon receptor co-agonism, summarizing the systematic review/meta-analysis evidence on dual and triple GLP-1-based polyagonists for MASLD/MASH, and narrative-review evidence on cardiovascular effects of combined glucagon and GLP-1 receptor signaling. Frame this class as addressing the efficacy ceiling of GLP-1 monotherapy in advanced fibrosis."
+    },
+    {
+      "filename": "06-comorbidities-special-populations.qmd",
+      "heading": "# Cardiometabolic Comorbidities and Special Clinical Contexts",
+      "subtopics": ["cardiometabolic_comorbidities", "special_populations_safety", "comparator_combination_therapies"],
+      "word_target": "1,100-1,300",
+      "writing_instructions": "Address MASLD/MASH as a node within the broader cardiovascular-kidney-liver-metabolic (CKLM) or cardiovascular-kidney-metabolic (CKM) syndrome, covering shared mechanisms with coronary artery disease (heart-liver co-management), chronic kidney disease, and the unified cardiometabolic disease continuum spanning T2DM, ASCVD, HFpEF, hypertension, and CKD. Cover comparator and adjunct pharmacotherapies relevant to positioning GLP-1RA/tirzepatide: fibrates within CKLM syndrome, SGLT2 inhibitors, and management of the emerging MetALD (metabolic and alcohol-associated liver disease) phenotype where trial evidence is limited due to alcohol-use exclusion criteria. Cover special populations and safety: GLP-1RA use in inflammatory bowel disease patients with obesity/visceral adiposity, peri-procedural gastric stasis and aspiration risk during endoscopy under contemporary GLP-1RA guidance, cirrhosis management in diabetic patients, and GLP-1RA's dual-edged relationship with hepatocellular carcinoma risk in the context of diabetes and MASLD."
+    },
+    {
+      "filename": "07-discussion.qmd",
+      "heading": "# Discussion and Future Directions",
+      "subtopics": ["clinical_guidelines_definitions", "dual_triple_agonists", "cardiometabolic_comorbidities", "pathophysiology_mechanism"],
+      "word_target": "1,300-1,500",
+      "writing_instructions": "Synthesize across sections: weigh GLP-1RA monotherapy against dual/triple agonist strategies for MASLD/MASH, highlighting where evidence supports superior hepatic and cardiometabolic outcomes with multi-receptor agonism versus where monotherapy remains sufficient. Discuss integration into national and international clinical practice guidelines (e.g., Bosnia and Herzegovina MASLD guidelines) and how diagnostic stratification (at-risk MASH via MRE, PNPLA3 status) should inform therapy selection. Address unresolved questions: durability of hepatic benefit after treatment discontinuation, applicability to advanced fibrosis/cirrhosis and MetALD populations excluded from major trials, safety considerations in endoscopy and IBD populations, and the long-term HCC risk-benefit balance. Note limitations of the current evidence base (heterogeneous outcome definitions, predominance of surrogate/imaging endpoints over hard histologic or cardiovascular outcomes) and propose future research priorities: head-to-head trials of polyagonists versus GLP-1RA monotherapy, biomarker-guided patient selection, and outcomes research in cardiovascular-kidney-liver-metabolic syndrome populations. Close with a concise take-home synthesis."
+    }
+  ]
+}

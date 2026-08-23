@@ -1,0 +1,101 @@
+You are a systematic-review methodologist designing the structure of a literature review manuscript for a specific topic, grounded in a sample of the articles that were actually found for it.
+
+Topic: GLP-1 receptor agonists and metabolic dysfunction-associated steatotic liver disease
+
+Below are titles and abstracts from a sample of the articles retrieved for this topic (article count: 20 of 100 selected).
+
+1. Clinical efficacy of switching to tirzepatide in patients with type 2 diabetes and a high risk of metabolic dysfunction-associated steatotic liver disease undergoing GLP-1 receptor agonist therapy: Insights from the Hokkaido-TZP study.
+   AIMS: To evaluate the clinical efficacy of switching from glucagon-like peptide-1 receptor agonists (GLP-1RAs) to tirzepatide in terms of metabolic and hepatic indices in patients with T2D at high risk of metabolic dysfunction-associated steatotic liver disease (MASLD). METHODS: This multicenter, retrospective study comprised secondary analysis of the Hokkaido-TZP study, focusing on a subpopulatio
+
+2. Therapies for Cardiovascular-Kidney-Liver-Metabolic Syndrome: Reappraisal of Fibrates.
+   Cardiovascular disease, chronic kidney disease (CKD), type 2 diabetes mellitus (T2DM), obesity and metabolic dysfunction-associated steatohepatitis (MASH) frequently coexist and share overlapping pathophysiology, forming the proposed cardiovascular-kidney-liver-metabolic (CKLM) syndrome. Although contemporary therapies such as sodium-glucose cotransporter-2 inhibitors (SGLT2i), glucagon-like pepti
+
+3. Role of glucagon in metabolic diseases.
+   Currently, diabetes is defined as "a chronic hyperglycemic state resulting from the absolute or relative insufficiency of insulin action," emphasizing its characterization as an insulin-related disease. However, glucagon dysregulation should also play a critical role in the pathophysiology of type 2 diabetes. The pathophysiological relevance of glucagon in type 2 diabetes has long remained uncerta
+
+4. The role of glucagon-like peptide 1 receptor agonists in the management of patients with inflammatory bowel diseases.
+   Obesity is increasingly prevalent among patients with inflammatory bowel diseases (IBD), with more than half of individuals with Crohns disease (CD) or ulcerative colitis (UC) classified as overweight or obese at diagnosis. Beyond body mass index (BMI), visceral adipose tissue (VAT) is emerging as a critical determinant of adverse IBD outcomes, including increased disease activity, reduced therape
+
+5. Simplified definition and imaging-based stratification of at-risk MASH using magnetic resonance elastography.
+   BACKGROUND: Accurate identification of patients with metabolic dysfunction-associated steatohepatitis (MASH) at risk of disease progression (at-risk MASH) is critical for guiding resmetirom and semaglutide therapy. Inconsistent definitions of at-risk MASH complicate clinical risk classification and comparisons across studies. This study aimed to standardize the definition of at-risk MASH and propo
+
+6. Clinical Practice Guidelines for Adult MASLD in Bosnia and Herzegovina: National Recommendations for Diagnosis, Risk Stratification, and Treatment.
+   Metabolic dysfunction-associated steatotic liver disease (MASLD) is the leading cause of chronic liver disease in Bosnia and Herzegovina and a major contributor to liver- and cardiovascular-related morbidity and mortality. These national guidelines provide the first country-specific, evidence-based recommendations for the diagnosis, risk stratification, and management of MASLD, covering the full d
+
+7. Pharmacologic management of metabolic and alcohol-associated liver disease.
+   Metabolic and alcohol-associated liver disease (MetALD) is an emerging phenotype within the steatotic liver disease spectrum, characterized by cardiometabolic risk factors coexisting with alcohol exposure, resulting in synergistic liver injury and fibrosis progression. Therapeutic development remains limited because most steatotic liver disease trials exclude patients with ongoing alcohol use. In 
+
+8. Heart-liver co-management: epidemiology, mechanisms, and novel therapeutic approaches for metabolic dysfunction-associated steatotic liver disease and coronary artery disease.
+   BACKGROUND: Metabolic dysfunction-associated steatotic liver disease (MASLD) and coronary artery disease (CAD) are interconnected global health epidemics that substantially contribute to worldwide morbidity and mortality. We aimed to provide a systematic overview of the epidemiological links and shared pathophysiological mechanisms between MASLD and CAD, evaluate emerging therapeutic strategies wi
+
+9. Liver Fat Changes in Patients With Type 2 Diabetes by Presence of Genetic Hepatic Steatosis: A Post Hoc Analysis of SURPASS-3 MRI.
+   The patatin-like phospholipase 3 (PNPLA3) I148M genetic variant is highly associated with steatotic liver disease. In the SURPASS-3 MRI substudy, tirzepatide significantly reduced liver fat content (LFC) versus insulin degludec in insulin-naïve patients with type 2 diabetes with metabolic dysfunction-associated steatotic liver disease. The influence of PNPLA3 I148M allele on changes in LFC in resp
+
+10. Management of Cirrhosis in Diabetes: A Pragmatic Approach to the Patient.
+   As the global burden of cirrhosis shifts toward metabolic dysfunction-associated steatotic liver disease (MASLD), diabetes and metabolic syndrome act as key upstream drivers of liver injury. At the same time, diabetes is increasingly recognized even in cirrhosis of non-metabolic etiologies, including viral hepatitis, reflecting both shared risk factors and cirrhosis-related disturbances in glucose
+
+11. Choline and metabolic health, a missing link in a critical chain.
+   PURPOSE OF REVIEW: Emerging evidence suggests that choline plays a significant role in mediating metabolic disease beyond the regulation of hepatic triglycerides. The aim of this article is to present a current, brief synthesis focused on the impact of choline intake on metabolic health and to identify future directions in this research space. RECENT FINDINGS: Recent work has linked low choline in
+
+12. From indirect regulation to multi-layered metabolic control in MASLD: Multi-receptor agonism and microbiota-metabolite functional convergence.
+   Glucagon-like peptide-1 receptor agonists (GLP-1RAs) have shown clinical efficacy in metabolic dysfunction-associated steatotic liver disease (MASLD), yet their therapeutic performance appears limited in several recurring settings, including advanced fibrosis, metabolically milder populations, and treatment discontinuation. These limitations suggest that treatment responses are shaped not only by 
+
+13. Metabolic Dysfunction-Associated Steatotic Liver Disease, Cardiovascular, and Kidney Disease: Triple Challenges.
+   Metabolic dysfunction-associated steatotic liver disease (MASLD) is increasingly recognized as a central component of cardiovascular-kidney-metabolic (CKM) syndrome, reflecting shared pathways of insulin resistance, inflammation, and fibrotic injury that drive multi-organ disease. Affecting more than one-third of adults worldwide, MASLD frequently coexists with chronic kidney disease (CKD) and car
+
+14. Cardiovascular Effects of Glucagon Receptor Signaling Alone and Combined With Glucagon-Like Peptide-1 Receptor Signaling in Multiagonists: A Narrative Review With a Translational Focus.
+   Cardio-kidney-metabolic diseases including obesity, metabolic dysfunction-associated liver disease, and type 2 diabetes have reached pandemic prevalence, fueling the search for new treatments for these conditions, given their associated complications, notably cardiovascular disease. Dual agonists of the glucagon and glucagon-like peptide (GLP-1) receptors are promising. Certain GLP-1 receptor mono
+
+15. Efficacy and Safety of Dual and Triple Glucagon-Like Peptide-1-Based Polyagonists in Metabolic Dysfunction-Associated Steatotic Liver Disease and Steatohepatitis: A Systematic Review and Meta-Analysis.
+   Metabolic dysfunction-associated steatotic liver disease (MASLD) and its inflammatory form, metabolic dysfunction-associated steatohepatitis (MASH), are strongly linked to obesity, insulin resistance, type 2 diabetes, and progressive liver fibrosis. Dual and triple glucagon-like peptide-1 (GLP-1)-based polyagonists may provide complementary hepatic and metabolic benefits, but their overall efficac
+
+16. GLP-1 receptor agonists at the crossroads of diabetes, hepatic steatosis, and hepatocellular carcinoma.
+   The epidemiology of hepatocellular carcinoma (HCC) is increasingly shaped by the expanding burden of type 2 diabetes (T2D), obesity, and metabolic dysfunction-associated steatotic liver disease (MASLD). Glucagon-like peptide-1 receptor agonists (GLP-1RAs), initially developed as glucose-lowering agents, have emerged as systemic metabolic therapies with effects extending beyond glycemic control, in
+
+17. Tirzepatide and metabolic dysfunction-associated steatotic liver disease (MASLD) in obesity: a real-world multicenter study.
+   INTRODUCTION: Metabolic dysfunction-associated steatotic liver disease (MASLD) is the most common chronic liver disease worldwide and is strongly associated with obesity, insulin resistance, and systemic inflammation. Tirzepatide, a dual GIP and GLP-1 receptor agonist, has shown significant effects on weight loss and metabolic control. However, real-world evidence on hepatic steatosis remains limi
+
+18. Therapeutic role of semaglutide in metabolic dysfunction-associated steatotic liver disease and metabolic dysfunction-associated steatohepatitis: A systematic review and meta-analysis of placebo-controlled trials with GRADE evidence assessment.
+   BACKGROUND: Nonalcoholic fatty liver disease (NAFLD) and its progressive form, nonalcoholic steatohepatitis (NASH), are leading causes of chronic liver disease worldwide. Despite the rising clinical burden, there are currently no approved pharmacologic therapies. Semaglutide, a glucagon-like peptide-1 receptor agonist with established metabolic and weight-loss benefits, is being evaluated for pote
+
+19. GLP-1 Receptor Agonists and Endoscopy: Understanding Gastric Stasis, Aspiration Risk, and Contemporary Peri-Procedural Guidance.
+   The global increase in obesity, type 2 diabetes mellitus (T2DM), and metabolic dysfunction-associated steatotic liver disease (MASLD) has led to a higher use of glucagon-like peptide-1 receptor agonists (GLP-1RAs) among patients undergoing gastrointestinal endoscopy. Although GLP-1RAs provide significant metabolic, cardiovascular, and hepatic benefits, their tendency to slow gastric emptying has r
+
+20. The unified cardiometabolic disease continuum: mechanistic stages of a single pathophysiological process.
+   BACKGROUND: Type 2 diabetes mellitus (T2DM), atherosclerotic cardiovascular disease (ASCVD), heart failure with preserved ejection fraction (HFpEF), metabolic dysfunction-associated steatotic liver disease (MASLD), hypertension, and chronic kidney disease (CKD) share risk factors and may represent endpoints of a pathophysiological cardiometabolic continuum. We analyzed data suggesting these phenot
+
+Design a review plan for this specific topic and corpus. Return ONLY this JSON structure (no markdown, no explanation):
+
+{
+  "categories": [
+    {
+      "name": "<short_snake_case_id, e.g. 'pharmacotherapy'>",
+      "keywords": ["<5-10 lowercase keyword/phrase stems that would appear in this topic's abstracts if an article belongs to this category, e.g. 'glp-1', 'semaglutide', 'agonist'>"]
+    }
+    // 6-10 categories total, covering: epidemiology/burden, mechanism/pathophysiology,
+    // diagnosis/staging (if applicable), the main treatment/intervention modalities for
+    // THIS topic (split into multiple categories if there are several distinct
+    // modalities — do not reuse HLH's categories unless the topic is HLH), and
+    // prognosis/outcomes. Add topic-specific categories the corpus actually supports
+    // (e.g. comorbidities, special populations) instead of forcing articles into a
+    // generic bucket. Keywords must be grounded in terms you actually saw in the
+    // abstracts above, not generic guesses.
+  ],
+  "sections": [
+    {
+      "filename": "01-introduction.qmd",
+      "heading": "# Introduction",
+      "subtopics": ["<category names from above that feed this section>"],
+      "word_target": "1,200-1,500",
+      "writing_instructions": "<Specific instructions for this section: what it must cover for THIS topic, in the same level of concrete detail as a domain expert would give — name the actual disease entities, drug classes, mechanisms, or criteria relevant to THIS topic. Do not write generic placeholder instructions.>"
+    }
+    // Always include, in order: 01-introduction.qmd, 02-methods.qmd (subtopics: [],
+    // methodological — search strategy, PRISMA flow, inclusion/exclusion criteria),
+    // then 3-6 body sections tailored to this topic's actual categories above
+    // (numbered 03, 04, 05... .qmd), then a final NN-discussion.qmd (subtopics:
+    // whichever categories best support synthesis + prognosis/outcomes).
+    // Total 5-9 sections. Word targets should sum to roughly 6,000-9,000 words.
+  ]
+}
+
+Write the JSON result to: output-glp1masld\plan\topic_plan.json

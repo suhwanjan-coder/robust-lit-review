@@ -1,0 +1,24 @@
+{
+  "total_articles_found": 100,
+  "articles_after_dedup": 100,
+  "articles_after_quality_filter": 100,
+  "articles_with_valid_doi": 100,
+  "articles_included": 50,
+  "articles_by_source": {
+    "pubmed": 50
+  },
+  "articles_by_year": {
+    "2026": 50
+  },
+  "articles_by_quartile": {},
+  "journals_represented": 41,
+  "avg_citescore": 0.0,
+  "avg_citation_count": 0.0,
+  "date_range": "2026-2026",
+  "word_count": 0,
+  "reference_count": 50,
+  "search_queries_used": [
+    "GLP-1 receptor agonists and metabolic dysfunction-associated steatotic liver disease"
+  ],
+  "generated_at": "2026-08-23T18:35:52.850071"
+}

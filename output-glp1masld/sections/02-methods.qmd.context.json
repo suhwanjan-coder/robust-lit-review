@@ -1,0 +1,17 @@
+{
+  "filename": "02-methods.qmd",
+  "heading": "# Methods",
+  "word_target": "600-800",
+  "writing_instructions": "Describe the PRISMA-based systematic review methodology used to assemble this corpus: databases searched (e.g., PubMed), search terms combining 'GLP-1 receptor agonist' / 'tirzepatide' / 'semaglutide' with 'MASLD' / 'MASH' / 'steatotic liver disease', date range, and validation process (100 validated articles from which this sample of 20 titles/abstracts is drawn). Describe inclusion/exclusion criteria: human studies (RCTs, real-world/observational studies, systematic reviews/meta-analyses, and narrative reviews/guidelines) addressing GLP-1RA or related incretin-based therapy in the context of MASLD/MASH or closely related metabolic-hepatic outcomes; exclusion of purely preclinical/animal studies unless mechanistic context is needed. Note the PRISMA flow diagram (identification, screening, eligibility, inclusion) and any quality/risk-of-bias assessment approach. Keep this section procedural and free of results interpretation.",
+  "article_count": 0,
+  "article_context": "(No specific articles for this section)",
+  "stats": {
+    "total_found": 100,
+    "after_dedup": 100,
+    "after_quality": 100,
+    "included": 50,
+    "journals": 41,
+    "date_range": "2026-2026",
+    "avg_citations": 0.0
+  }
+}
