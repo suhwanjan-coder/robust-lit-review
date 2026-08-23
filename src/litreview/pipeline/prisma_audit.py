@@ -34,115 +34,157 @@ class AuditItem:
     fix_instruction: str = ""  # What the repair agent should do
 
 
-# All 27 PRISMA 2020 items with audit rules
+# All 27 PRISMA 2020 items with audit rules.
+#
+# `required_in` holds ROLE names, not literal filenames — the original version
+# of this file hardcoded the author's own HLH section filenames
+# (03-pathogenesis.qmd, 08-discussion.qmd, etc.), so the audit silently found
+# nothing for any other topic's differently-named sections. Roles are resolved
+# to actual filenames by audit_manuscript()'s `role_files` argument; see
+# LEGACY_ROLE_FILES below for the mapping default (backward-compatible with
+# the original HLH example) and topic_planner.ReviewPlan for how a dynamic
+# plan's sections should be mapped instead.
+#
+# Roles: "main" (assembled manuscript), "abstract", "introduction", "methods",
+# "body" (all topic-specific content sections), "discussion", "checklist".
 PRISMA_ITEMS: list[AuditItem] = [
     # TITLE
     AuditItem("1", "Title", "Identify the report as a systematic review",
-              ["literature_review.qmd"], ["systematic review", "systematic literature review"]),
+              ["main"], ["systematic review", "systematic literature review"]),
 
     # ABSTRACT
     AuditItem("2", "Abstract", "Structured summary with background, methods, results, conclusions",
-              ["00-abstract.qmd"], ["background", "method", "result", "conclusion"]),
+              ["abstract"], ["background", "method", "result", "conclusion"]),
 
     # INTRODUCTION
     AuditItem("3", "Rationale", "Describe the rationale for the review in context of existing knowledge",
-              ["01-introduction.qmd"], ["rationale", "gap", "needed", "importance", "significance"]),
+              ["introduction"], ["rationale", "gap", "needed", "importance", "significance"]),
     AuditItem("4", "Objectives", "Provide explicit statement of objectives or questions",
-              ["01-introduction.qmd"], ["objective", "aim", "purpose", "question"]),
+              ["introduction"], ["objective", "aim", "purpose", "question"]),
 
     # METHODS
     AuditItem("5", "Eligibility criteria", "Specify inclusion and exclusion criteria",
-              ["02-methods.qmd"], ["inclusion criteria", "exclusion criteria", "eligible", "excluded"]),
+              ["methods"], ["inclusion criteria", "exclusion criteria", "eligible", "excluded"]),
     AuditItem("6", "Information sources", "Specify all databases and sources searched",
-              ["02-methods.qmd"], ["scopus", "pubmed", "embase", "database"]),
+              ["methods"], ["scopus", "pubmed", "embase", "database"]),
     AuditItem("7", "Search strategy", "Present full search strategies for all databases",
-              ["02-methods.qmd"], ["search strateg", "boolean", "mesh", "keyword", "search term"]),
+              ["methods"], ["search strateg", "boolean", "mesh", "keyword", "search term"]),
     AuditItem("8", "Selection process", "Specify methods to decide study inclusion",
-              ["02-methods.qmd"], ["screening", "selection", "reviewer", "title and abstract"]),
+              ["methods"], ["screening", "selection", "reviewer", "title and abstract"]),
     AuditItem("9", "Data collection", "Specify methods to collect data from reports",
-              ["02-methods.qmd"], ["data extraction", "data collection", "extraction form", "standardized"]),
+              ["methods"], ["data extraction", "data collection", "extraction form", "standardized"]),
     AuditItem("10a", "Data items - Outcomes", "List and define all outcomes sought",
-              ["02-methods.qmd"], ["outcome", "endpoint", "variable"]),
+              ["methods"], ["outcome", "endpoint", "variable"]),
     AuditItem("10b", "Data items - Variables", "List and define all other variables sought",
-              ["02-methods.qmd"], ["variable", "study design", "sample size", "demographics"]),
+              ["methods"], ["variable", "study design", "sample size", "demographics"]),
     AuditItem("11", "Risk of bias", "Specify methods to assess risk of bias",
-              ["02-methods.qmd"], ["risk of bias", "quality assessment", "bias", "newcastle-ottawa", "amstar", "quadas"]),
+              ["methods"], ["risk of bias", "quality assessment", "bias", "newcastle-ottawa", "amstar", "quadas"]),
     AuditItem("12", "Effect measures", "Specify effect measures used in synthesis",
-              ["02-methods.qmd"], ["effect measure", "narrative synthesis", "thematic", "qualitative synthesis"]),
+              ["methods"], ["effect measure", "narrative synthesis", "thematic", "qualitative synthesis"]),
     AuditItem("13a", "Synthesis - Eligibility", "Describe which studies eligible for each synthesis",
-              ["02-methods.qmd"], ["eligible", "synthesis", "thematic"]),
+              ["methods"], ["eligible", "synthesis", "thematic"]),
     AuditItem("13b", "Synthesis - Data prep", "Describe data preparation methods",
-              ["02-methods.qmd"], ["data preparation", "data extraction", "standardized form"]),
+              ["methods"], ["data preparation", "data extraction", "standardized form"]),
     AuditItem("13c", "Synthesis - Display", "Describe tabulation or visual display methods",
-              ["02-methods.qmd"], ["table", "figure", "flow diagram", "prisma", "visual"]),
+              ["methods"], ["table", "figure", "flow diagram", "prisma", "visual"]),
     AuditItem("13d", "Synthesis - Methods", "Describe synthesis methods and rationale",
-              ["02-methods.qmd"], ["narrative synthesis", "thematic", "qualitative", "synthesis approach"]),
+              ["methods"], ["narrative synthesis", "thematic", "qualitative", "synthesis approach"]),
     AuditItem("13e", "Synthesis - Heterogeneity", "Describe methods to explore heterogeneity",
-              ["02-methods.qmd"], ["heterogeneity", "subgroup", "thematic group", "domain"]),
+              ["methods"], ["heterogeneity", "subgroup", "thematic group", "domain"]),
     AuditItem("13f", "Synthesis - Sensitivity", "Describe any sensitivity analyses",
-              ["02-methods.qmd"], ["sensitivity", "robustness"]),
+              ["methods"], ["sensitivity", "robustness"]),
     AuditItem("14", "Reporting bias", "Describe methods to assess reporting bias",
-              ["02-methods.qmd", "08-discussion.qmd"], ["reporting bias", "publication bias", "missing results"]),
+              ["methods", "discussion"], ["reporting bias", "publication bias", "missing results"]),
     AuditItem("15", "Certainty assessment", "Describe methods to assess certainty of evidence",
-              ["02-methods.qmd"], ["certainty", "grade", "quality of evidence", "confidence"]),
+              ["methods"], ["certainty", "grade", "quality of evidence", "confidence"]),
 
     # RESULTS
     AuditItem("16a", "Study selection - Flow", "Describe search/selection results with flow diagram",
-              ["02-methods.qmd"], ["prisma", "flow diagram", "figure", "identified", "included", "excluded"]),
+              ["methods"], ["prisma", "flow diagram", "figure", "identified", "included", "excluded"]),
     AuditItem("16b", "Study selection - Exclusions", "Cite excluded studies and explain why",
-              ["02-methods.qmd"], ["excluded", "exclusion", "reason", "citescore", "case report"]),
+              ["methods"], ["excluded", "exclusion", "reason", "citescore", "case report"]),
     AuditItem("17", "Study characteristics", "Cite each included study and present characteristics",
-              ["03-pathogenesis.qmd", "04-diagnosis.qmd", "05-etiology.qmd", "06-treatment.qmd"],
-              ["@"]),  # Check for citations
+              ["body"], ["@"]),  # Check for citations
     AuditItem("18", "Risk of bias in studies", "Present risk of bias assessments",
-              ["02-methods.qmd", "08-discussion.qmd"], ["risk of bias", "quality", "limitation"]),
+              ["methods", "discussion"], ["risk of bias", "quality", "limitation"]),
     AuditItem("19", "Individual results", "Present summary statistics and effect estimates",
-              ["03-pathogenesis.qmd", "04-diagnosis.qmd", "05-etiology.qmd", "06-treatment.qmd"],
-              ["%", "p =", "p <", "hazard ratio", "odds ratio", "confidence interval", "n ="]),
+              ["body"], ["%", "p =", "p <", "hazard ratio", "odds ratio", "confidence interval", "n ="]),
     AuditItem("20a", "Synthesis summary", "Summarize characteristics of contributing studies per synthesis",
-              ["03-pathogenesis.qmd", "04-diagnosis.qmd", "05-etiology.qmd", "06-treatment.qmd", "07-covid.qmd"],
-              ["studies", "articles", "review", "trial"]),
+              ["body"], ["studies", "articles", "review", "trial"]),
     AuditItem("20b", "Synthesis results", "Present statistical synthesis results",
-              ["03-pathogenesis.qmd", "04-diagnosis.qmd", "06-treatment.qmd"],
-              ["%", "p ", "response rate", "survival", "mortality", "sensitivity", "specificity"]),
+              ["body"], ["%", "p ", "response rate", "survival", "mortality", "sensitivity", "specificity"]),
 
     # DISCUSSION
     AuditItem("23a", "Interpretation", "General interpretation in context of other evidence",
-              ["08-discussion.qmd"], ["interpretation", "context", "finding", "synthesis", "advance"]),
+              ["discussion"], ["interpretation", "context", "finding", "synthesis", "advance"]),
     AuditItem("23b", "Evidence limitations", "Discuss limitations of the evidence",
-              ["08-discussion.qmd"], ["limitation", "bias", "heterogeneity", "quality"]),
+              ["discussion"], ["limitation", "bias", "heterogeneity", "quality"]),
     AuditItem("23c", "Review limitations", "Discuss limitations of the review processes",
-              ["08-discussion.qmd"], ["limitation", "weakness", "restrict"]),
+              ["discussion"], ["limitation", "weakness", "restrict"]),
     AuditItem("23d", "Implications", "Discuss implications for practice, policy, future research",
-              ["08-discussion.qmd"], ["implication", "future", "recommend", "clinical practice", "direction"]),
+              ["discussion"], ["implication", "future", "recommend", "clinical practice", "direction"]),
 
     # OTHER
     AuditItem("24a", "Registration", "Provide registration info or state not registered",
-              ["09-prisma-checklist.qmd"], ["registr", "prospero", "not registered"]),
+              ["checklist"], ["registr", "prospero", "not registered"]),
     AuditItem("25", "Support", "Describe funding sources",
-              ["09-prisma-checklist.qmd"], ["funding", "support", "financial", "no external"]),
+              ["checklist"], ["funding", "support", "financial", "no external"]),
     AuditItem("26", "Competing interests", "Declare competing interests",
-              ["09-prisma-checklist.qmd"], ["competing interest", "conflict of interest", "no competing"]),
+              ["checklist"], ["competing interest", "conflict of interest", "no competing"]),
     AuditItem("27", "Data availability", "Report public availability of data and code",
-              ["09-prisma-checklist.qmd"], ["available", "github", "repository", "code", "data"]),
+              ["checklist"], ["available", "github", "repository", "code", "data"]),
 ]
 
+# Default role->filename mapping: the original HLH example's fixed layout.
+# Backward-compatible fallback for audit_manuscript() when no dynamic
+# role_files is supplied.
+LEGACY_ROLE_FILES: dict[str, list[str]] = {
+    "main": ["literature_review.qmd"],
+    "abstract": ["00-abstract.qmd"],
+    "introduction": ["01-introduction.qmd"],
+    "methods": ["02-methods.qmd"],
+    "body": ["03-pathogenesis.qmd", "04-diagnosis.qmd", "05-etiology.qmd", "06-treatment.qmd", "07-covid.qmd"],
+    "discussion": ["08-discussion.qmd"],
+    "checklist": ["09-prisma-checklist.qmd"],
+}
 
-def audit_manuscript(sections_dir: Path) -> list[AuditItem]:
+
+def audit_manuscript(
+    sections_dir: Path,
+    role_files: dict[str, list[str]] | None = None,
+) -> list[AuditItem]:
     """Audit the manuscript against all 27 PRISMA 2020 items.
 
     Reads section files and checks for required content using keyword matching.
     Returns the list of items with pass/fail status and fix instructions.
+
+    *role_files* maps role name ("methods", "body", "discussion", etc. — see
+    PRISMA_ITEMS' docstring) to the actual filename(s) playing that role for
+    this manuscript. Defaults to LEGACY_ROLE_FILES (the original HLH example's
+    fixed layout). For a topic-specific plan, build it from the plan's
+    sections, e.g.:
+        role_files = {
+            "main": ["literature_review.qmd"], "abstract": ["00-abstract.qmd"],
+            "introduction": [plan.sections[0].filename],
+            "methods": [plan.sections[1].filename],
+            "body": [s.filename for s in plan.sections[2:-1]],
+            "discussion": [plan.sections[-1].filename],
+            "checklist": ["checklist.qmd"],
+        }
     """
+    if role_files is None:
+        role_files = LEGACY_ROLE_FILES
+
     # Read all section files
     file_contents: dict[str, str] = {}
     for qmd_file in sections_dir.glob("*.qmd"):
         file_contents[qmd_file.name] = qmd_file.read_text(encoding="utf-8").lower()
 
-    # Also check the main QMD
-    main_qmd = sections_dir.parent / "literature_review.qmd"
-    if main_qmd.exists():
-        file_contents["literature_review.qmd"] = main_qmd.read_text(encoding="utf-8").lower()
+    # Also check the main QMD, wherever role_files says it lives
+    for main_filename in role_files.get("main", []):
+        main_qmd = sections_dir.parent / main_filename
+        if main_qmd.exists():
+            file_contents[main_filename] = main_qmd.read_text(encoding="utf-8").lower()
 
     results = []
     for item in PRISMA_ITEMS:
@@ -154,12 +196,17 @@ def audit_manuscript(sections_dir: Path) -> list[AuditItem]:
             check_keywords=item.check_keywords,
         )
 
+        # Resolve this item's roles to actual filenames
+        resolved_files = [
+            filename for role in item.required_in for filename in role_files.get(role, [])
+        ]
+
         # Check if keywords are found in the required files
         found_in = []
         missing_in = []
         keyword_hits = 0
 
-        for filename in item.required_in:
+        for filename in resolved_files:
             content = file_contents.get(filename, "")
             if not content:
                 missing_in.append(filename)
@@ -174,13 +221,13 @@ def audit_manuscript(sections_dir: Path) -> list[AuditItem]:
 
         # Determine status
         total_keywords = len(item.check_keywords)
-        if not item.required_in or keyword_hits == 0:
+        if not resolved_files or keyword_hits == 0:
             if item.number in ("13f", "20c", "20d"):
                 item.status = "n/a"
                 item.evidence = "Narrative synthesis — sensitivity analysis not applicable"
             else:
                 item.status = "fail"
-                item.evidence = f"No keywords found in: {', '.join(item.required_in)}"
+                item.evidence = f"No keywords found in: {', '.join(resolved_files) or '(no files for role: ' + ', '.join(item.required_in) + ')'}"
         elif keyword_hits >= total_keywords * 0.5:
             item.status = "pass"
             item.evidence = "; ".join(found_in)
@@ -281,20 +328,30 @@ def format_audit_report(items: list[AuditItem]) -> str:
     return "\n".join(lines)
 
 
-def generate_repair_prompts(items: list[AuditItem]) -> dict[str, str]:
+def generate_repair_prompts(
+    items: list[AuditItem],
+    role_files: dict[str, list[str]] | None = None,
+) -> dict[str, str]:
     """Generate repair prompts for each section file that has failed items.
+
+    *role_files* must match what was passed to audit_manuscript() — see its
+    docstring. Defaults to LEGACY_ROLE_FILES.
 
     Returns a dict mapping section filename to the repair prompt for the writing agent.
     """
+    if role_files is None:
+        role_files = LEGACY_ROLE_FILES
+
     repairs: dict[str, list[str]] = {}
 
     for item in items:
         if item.status not in ("fail", "partial"):
             continue
-        for filename in item.required_in:
-            repairs.setdefault(filename, []).append(
-                f"- PRISMA Item {item.number} ({item.section}): {item.fix_instruction}"
-            )
+        for role in item.required_in:
+            for filename in role_files.get(role, []):
+                repairs.setdefault(filename, []).append(
+                    f"- PRISMA Item {item.number} ({item.section}): {item.fix_instruction}"
+                )
 
     prompts = {}
     for filename, fixes in repairs.items():

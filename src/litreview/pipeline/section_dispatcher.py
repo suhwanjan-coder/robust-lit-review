@@ -311,8 +311,12 @@ def generate_main_qmd(
     if sections is None:
         sections = HLH_SECTIONS
 
+    # Writing agents are told to write ONLY body prose (no top-level heading —
+    # see SKILL.md Stage 6), so the heading must be inserted here. Omitting
+    # this means every section's content has no heading of its own and nests
+    # under whatever heading precedes it in the assembled document.
     body_includes = "\n\n".join(
-        f"{{{{< include sections/{s.filename} >}}}}" for s in sections
+        f"{s.heading}\n\n{{{{< include sections/{s.filename} >}}}}" for s in sections
     )
 
     content = f"""---
@@ -343,9 +347,11 @@ format:
     theme: cosmo
 bibliography: references.bib
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/american-medical-association.csl
-abstract: |
-  {{{{< include sections/00-abstract.qmd >}}}}
 ---
+
+# Abstract
+
+{{{{< include sections/00-abstract.qmd >}}}}
 
 {body_includes}
 

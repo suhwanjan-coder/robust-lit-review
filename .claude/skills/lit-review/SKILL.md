@@ -276,9 +276,21 @@ Choose ONE audit method:
 **Method A: Keyword audit (fast, no LLM cost)**
 ```python
 from litreview.pipeline.prisma_audit import audit_manuscript, format_audit_report, generate_repair_prompts
-results = audit_manuscript(Path("output/sections"))
+# role_files maps each audit role to the ACTUAL filenames for this topic's
+# plan (see Stage 3.5) — omitting it falls back to the legacy HLH filenames
+# and silently finds nothing for any other topic (roles: main, abstract,
+# introduction, methods, body, discussion, checklist).
+role_files = {
+    "main": ["literature_review.qmd"], "abstract": ["00-abstract.qmd"],
+    "introduction": [plan.sections[0].filename],
+    "methods": [plan.sections[1].filename],
+    "body": [s.filename for s in plan.sections[2:-1]],
+    "discussion": [plan.sections[-1].filename],
+    "checklist": ["checklist.qmd"],
+}
+results = audit_manuscript(Path("output/sections"), role_files=role_files)
 print(format_audit_report(results))
-repairs = generate_repair_prompts(results)
+repairs = generate_repair_prompts(results, role_files=role_files)
 ```
 
 **Method B: Haiku LLM-as-judge (much more accurate)**
@@ -321,7 +333,9 @@ from litreview.pipeline.prisma_checklist import generate_prisma_checklist
 checklist = generate_prisma_checklist(
     repo_url="https://github.com/htlin222/robust-lit-review"
 )
-# Write to output/sections/09-prisma-checklist.qmd
+# Write to output/sections/checklist.qmd — use this name (not a numbered
+# "NN-prisma-checklist.qmd"), since the number of body sections varies by
+# topic and a fixed "09-" would collide or leave gaps.
 ```
 
 ### Stage 8: Render

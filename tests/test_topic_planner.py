@@ -178,6 +178,10 @@ def test_generate_main_qmd_include_list_matches_dynamic_sections(tmp_path):
     assert "{{< include sections/03-pharmacotherapy.qmd >}}" in qmd
     assert "05-etiology" not in qmd  # legacy HLH filename must not leak in
     assert "08-discussion" not in qmd
+    # Each section's heading must be inserted before its include — writing
+    # agents are told not to write their own heading, so if generate_main_qmd
+    # doesn't supply one, every section nests under whatever heading precedes it.
+    assert "# Pharmacotherapy\n\n{{< include sections/03-pharmacotherapy.qmd >}}" in qmd
 
 
 def test_generate_main_qmd_defaults_to_hlh_sections(tmp_path):
