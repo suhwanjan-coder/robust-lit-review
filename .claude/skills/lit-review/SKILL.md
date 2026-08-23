@@ -117,6 +117,39 @@ Launch 3 subagents in parallel:
 - Filter to Q1/Q2 journals only (CiteScore >= 3.0, SJR quartile)
 - Articles without metrics from PubMed are kept for validation
 
+### Stage 3.5: Generate Topic-Specific Review Plan (MANDATORY, not skippable)
+
+**Why this stage exists:** this repo originally shipped with a subtopic taxonomy
+(`enrichment.HLH_SUBTOPIC_TAXONOMY`) and section structure
+(`section_dispatcher.HLH_SECTIONS`) hardcoded for one topic (adult HLH). Using
+those defaults for any other topic silently breaks Stage 4.5/6: articles match
+no keyword and section-writing agents get briefed with HLH-specific gene/drug
+names unrelated to the actual topic. This stage replaces the hardcoded plan
+with one generated for the actual topic and corpus.
+
+```python
+from litreview.pipeline.topic_planner import generate_taxonomy_task
+task = generate_taxonomy_task(topic, articles, Path("output/plan"))
+```
+Dispatch the ONE task — deliberately NOT `model="haiku"`, this single call
+shapes every category and section instruction downstream:
+```
+Agent(description=task.description, prompt=task.prompt)
+```
+Then collect:
+```python
+from litreview.pipeline.topic_planner import collect_taxonomy_result
+plan = collect_taxonomy_result(topic, Path("output/plan"))
+if plan is None:
+    # Fall back to the legacy HLH plan and WARN the user explicitly — never
+    # fail silently (SKILL.md Error Handling rule). Only appropriate if the
+    # topic actually is HLH.
+    ...
+```
+Carry `plan.taxonomy`, `plan.important_categories`, and `plan.sections` into
+every later stage that used to reference the hardcoded HLH constants (4.5,
+4.6's `classify_article_subtopic` calls if any, 6, and `generate_main_qmd`).
+
 ### Stage 4: Validate (parallelize)
 Launch validation subagent:
 - Validate every DOI via `https://doi.org/api/handles/{doi}`
@@ -129,7 +162,10 @@ Launch validation subagent:
 **Method A: Balanced heuristic (fast, no extra deps)**
 ```python
 from litreview.pipeline.enrichment import ensure_balanced_coverage
-selected = ensure_balanced_coverage(articles, target_count=50)
+selected = ensure_balanced_coverage(
+    articles, target_count=50,
+    taxonomy=plan.taxonomy, important_categories=plan.important_categories,
+)
 ```
 
 **Method B: PubMedBert embedding + haiku judge (better relevance)**
@@ -186,27 +222,31 @@ Write the review in PARALLEL using modular sections + Quarto `{{< include >}}`.
 **Step 6a: Dispatch sections**
 ```python
 from litreview.pipeline.section_dispatcher import dispatch_sections, generate_main_qmd
-dispatched = dispatch_sections(articles, stats, Path("output"))
-main_qmd = generate_main_qmd(topic, stats, Path("output"))
+dispatched = dispatch_sections(
+    articles, stats, Path("output"),
+    sections=plan.sections, taxonomy=plan.taxonomy,
+)
+main_qmd = generate_main_qmd(topic, stats, Path("output"), sections=plan.sections)
 ```
+(`plan` is the `ReviewPlan` from Stage 3.5. Omitting `sections=`/`taxonomy=`
+silently falls back to the legacy HLH plan — only correct if the topic is HLH.)
 
 This creates `output/sections/*.context.json` with per-section article context.
 
-**Step 6b: Launch parallel writing subagents (8 sections simultaneously)**
+**Step 6b: Launch parallel writing subagents (one per section in `plan.sections`,
+plus `sections/00-abstract.qmd` which is written separately — it isn't part of
+`dispatch_sections()`, see below)**
 
-Launch ALL of these agents in a SINGLE message (parallel tool calls):
+Launch ALL of these agents in a SINGLE message (parallel tool calls) — one per
+`SectionSpec` in `plan.sections` (5-9 sections, topic-dependent; NOT the fixed
+9-row table this used to be), plus a separate abstract agent:
 
-| Agent | Section File | Articles | Words |
-|-------|-------------|----------|-------|
-| 1 | `sections/00-abstract.qmd` | all | 300 |
-| 2 | `sections/01-introduction.qmd` | review, classification, epidemiology | 1,200-1,500 |
-| 3 | `sections/02-methods.qmd` | (none — methodological) | 800-1,000 |
-| 4 | `sections/03-pathogenesis.qmd` | pathogenesis, genetics | 1,000-1,200 |
-| 5 | `sections/04-diagnosis.qmd` | diagnosis, classification | 1,200-1,500 |
-| 6 | `sections/05-etiology.qmd` | infection, malignancy, autoimmune, iatrogenic | 1,200-1,500 |
-| 7 | `sections/06-treatment.qmd` | treatment_conventional/targeted/transplant | 1,500-1,800 |
-| 8 | `sections/07-covid.qmd` | infection_trigger, pathogenesis | 800-1,000 |
-| 9 | `sections/08-discussion.qmd` | review_guideline, prognosis | 1,500-1,800 |
+- **Abstract agent** (`sections/00-abstract.qmd`, ~300 words): summarizes the
+  whole review; dispatch after the other sections are drafted so it can
+  reference their conclusions, or draft it in parallel and reconcile at 6c.
+- **One agent per `plan.sections[i]`**: reads `plan.sections[i].filename`,
+  `.heading`, `.word_target`, `.writing_instructions` (all topic-specific, from
+  Stage 3.5 — do not substitute generic instructions).
 
 Each agent:
 1. Reads its context from `output/sections/{name}.context.json`
@@ -302,10 +342,16 @@ Present to user:
 
 ## CLI Alternative
 
-The full pipeline is also available via CLI:
 ```bash
 lit-review review "TOPIC" --term "term1" --term "term2" --target 50 --min-citescore 3.0 -v
 ```
+**Note:** despite the name, this only runs the mechanical half of the pipeline
+(search → dedup → quality filter → validate → BibTeX → statistics, i.e. Stages
+1-4.5 Method A). It has no access to an LLM agent, so it cannot run Stage 3.5
+(topic plan), Stage 4.6 Method B, Stage 6 (writing), or Stage 7 (PRISMA audit)
+— the actual narrative manuscript. Use `/lit-review` in Claude Code for a real
+manuscript; use this CLI only when you want the search/bibliography output
+alone.
 
 ## Quality Gates (NON-NEGOTIABLE)
 
