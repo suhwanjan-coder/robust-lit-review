@@ -106,6 +106,19 @@ source .venv/bin/activate 2>/dev/null || (uv venv && source .venv/bin/activate &
 # Windows: .venv\Scripts\activate instead of .venv/bin/activate
 ```
 
+**If SCOPUS_API_KEY is set, pre-flight the abstract entitlement before running the
+full pipeline** — Elsevier's Abstract Retrieval API answers HTTP 200 with an EMPTY
+abstract when off the institution's network (VPN not connected), never 401/403, so
+nothing errors and a full run silently produces a structurally complete but
+substantively empty manuscript for Scopus-sourced sections. One request catches this
+in seconds instead of after fetching 50 empty abstracts:
+```python
+from litreview.pipeline.enrichment import verify_scopus_abstract_access
+ok, msg = await verify_scopus_abstract_access(scopus_api_key, some_scopus_id)
+# some_scopus_id: any real ID, e.g. from a 1-result Stage 2 probe search.
+# ok=False -> tell the user to check their VPN before continuing.
+```
+
 ### Stage 2: Search (parallelize across databases)
 Launch 3 subagents in parallel:
 - **Scopus Agent**: Search Scopus API, get CiteScore/SJR metrics per journal

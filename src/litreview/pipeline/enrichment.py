@@ -383,6 +383,88 @@ def build_rich_article_context(article: ArticleMetadata, extracted: ExtractedDat
     return "\n".join(parts)
 
 
+@dataclass
+class AbstractFetchReport:
+    """Counters from fetch_missing_abstracts, used to detect silent entitlement loss.
+
+    The failure this exists to catch: off the institution's network, Elsevier's
+    Abstract Retrieval API answers HTTP 200 with an EMPTY dc:description instead
+    of 401/403. Nothing errors, the pipeline continues, and the manuscript comes
+    out structurally complete but substantively empty. Verified 2026-09-08 by
+    A/B test: same 3 records returned 0/0/0 chars off-VPN vs 1976/1829/2057 chars
+    on the institution VPN, both HTTP 200.
+    """
+
+    scopus_attempted: int = 0
+    scopus_with_text: int = 0
+    scopus_empty_200: int = 0
+    pubmed_attempted: int = 0
+    pubmed_with_text: int = 0
+
+    @property
+    def scopus_likely_blocked(self) -> bool:
+        """True when Scopus answered but never actually handed over abstract text."""
+        return (
+            self.scopus_attempted >= _SCOPUS_BLOCK_MIN_SAMPLES
+            and self.scopus_with_text == 0
+            and self.scopus_empty_200 > 0
+        )
+
+
+# Minimum Scopus attempts before an all-empty result is treated as signal rather
+# than coincidence (a couple of genuinely abstract-less records is normal).
+_SCOPUS_BLOCK_MIN_SAMPLES = 3
+
+
+def format_abstract_fetch_warning(report: AbstractFetchReport) -> str | None:
+    """Return a human-facing warning when abstracts were silently withheld, else None."""
+    if not report.scopus_likely_blocked:
+        return None
+    return (
+        f"Scopus returned HTTP 200 for all {report.scopus_attempted} abstract requests "
+        f"but supplied NO abstract text ({report.scopus_empty_200} empty responses). "
+        "This is what institutional entitlement loss looks like — Elsevier does not "
+        "send 401/403 for this, it just omits the text. Almost always: you are OFF "
+        "the institution VPN. Check your egress IP before trusting this run; any "
+        "manuscript written from it will be structurally complete but substantively "
+        "empty for Scopus-only records. (PubMed-sourced abstracts are unaffected.)"
+    )
+
+
+async def verify_scopus_abstract_access(scopus_api_key: str, scopus_id: str) -> tuple[bool, str]:
+    """Pre-flight probe: can we actually retrieve abstract TEXT, not just metadata?
+
+    Run this before a full pipeline run so an off-VPN session fails in one request
+    instead of after fetching 50 empty abstracts. Returns (ok, message).
+    """
+    import httpx
+
+    if not scopus_api_key:
+        return False, "SCOPUS_API_KEY not set"
+    try:
+        async with httpx.AsyncClient(timeout=20) as client:
+            resp = await client.get(
+                f"https://api.elsevier.com/content/abstract/scopus_id/{scopus_id}",
+                headers={"X-ELS-APIKey": scopus_api_key, "Accept": "application/json"},
+            )
+    except Exception as e:  # noqa: BLE001
+        return False, f"request failed: {type(e).__name__}: {e}"
+
+    if resp.status_code in (401, 403):
+        return False, f"HTTP {resp.status_code}: key rejected or not entitled for this API"
+    if resp.status_code != 200:
+        return False, f"HTTP {resp.status_code}: unexpected response"
+
+    data = resp.json().get("abstracts-retrieval-response", {})
+    abstract = (data.get("coredata", {}) or {}).get("dc:description") or ""
+    if not abstract:
+        return False, (
+            "HTTP 200 but NO abstract text — this is the silent off-VPN failure mode. "
+            "Connect the institution VPN and re-check before running the pipeline."
+        )
+    return True, f"OK: abstract text retrieved ({len(abstract)} chars)"
+
+
 async def fetch_missing_abstracts(
     articles: list[ArticleMetadata],
     scopus_api_key: str = "",
@@ -394,6 +476,9 @@ async def fetch_missing_abstracts(
     PubMed EFetch returns full abstracts.
     This function backfills missing abstracts via the Scopus Abstract Retrieval API
     and PubMed EFetch for articles without abstracts.
+
+    Emits a loud warning (see format_abstract_fetch_warning) when Scopus answers
+    but never yields abstract text — the silent off-VPN failure mode.
     """
     import asyncio
     import httpx
@@ -405,6 +490,7 @@ async def fetch_missing_abstracts(
 
     logger.info(f"Fetching full abstracts for {len(need_abstract)}/{len(articles)} articles")
     semaphore = asyncio.Semaphore(5)
+    report = AbstractFetchReport()
 
     async def fetch_scopus_abstract(article: ArticleMetadata) -> None:
         if not scopus_api_key or not article.scopus_id:
@@ -416,11 +502,16 @@ async def fetch_missing_abstracts(
                         f"https://api.elsevier.com/content/abstract/scopus_id/{article.scopus_id}",
                         headers={"X-ELS-APIKey": scopus_api_key, "Accept": "application/json"},
                     )
+                    report.scopus_attempted += 1
                     if resp.status_code == 200:
                         data = resp.json().get("abstracts-retrieval-response", {})
-                        abstract = data.get("coredata", {}).get("dc:description", "")
-                        if abstract and len(abstract) > len(article.abstract or ""):
-                            article.abstract = abstract
+                        abstract = (data.get("coredata", {}) or {}).get("dc:description") or ""
+                        if abstract:
+                            report.scopus_with_text += 1
+                            if len(abstract) > len(article.abstract or ""):
+                                article.abstract = abstract
+                        else:
+                            report.scopus_empty_200 += 1
             except Exception:
                 pass
 
@@ -438,6 +529,7 @@ async def fetch_missing_abstracts(
                             "id": article.pmid, "api_key": pubmed_api_key,
                         },
                     )
+                    report.pubmed_attempted += 1
                     if resp.status_code == 200:
                         root = ET.fromstring(resp.text)
                         abs_parts = root.findall(".//AbstractText")
@@ -446,6 +538,8 @@ async def fetch_missing_abstracts(
                                 (p.get("Label", "") + ": " if p.get("Label") else "") + (p.text or "")
                                 for p in abs_parts
                             )
+                            if abstract.strip():
+                                report.pubmed_with_text += 1
                             if len(abstract) > len(article.abstract or ""):
                                 article.abstract = abstract
             except Exception:
@@ -463,6 +557,18 @@ async def fetch_missing_abstracts(
 
     after = sum(1 for a in articles if a.abstract and len(a.abstract) >= 100)
     logger.info(f"After abstract fetch: {after}/{len(articles)} have full abstracts")
+    logger.info(
+        f"Abstract sources: scopus {report.scopus_with_text}/{report.scopus_attempted} with text, "
+        f"pubmed {report.pubmed_with_text}/{report.pubmed_attempted} with text"
+    )
+
+    warning = format_abstract_fetch_warning(report)
+    if warning:
+        # Loud on purpose: this failure is otherwise completely silent.
+        logger.warning("=" * 78)
+        logger.warning(warning)
+        logger.warning("=" * 78)
+
     return articles
 
 
