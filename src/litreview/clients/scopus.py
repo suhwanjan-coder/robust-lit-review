@@ -166,6 +166,17 @@ class ScopusClient:
     # Serial Title (Journal Metrics) API
     # ------------------------------------------------------------------
 
+    @staticmethod
+    def _latest_metric(container: dict | None, key: str) -> str | None:
+        """Pick the newest-year value from ``{"SJR": [{"@year": "2025", "$": "14.8"}]}``."""
+        items = (container or {}).get(key)
+        if isinstance(items, dict):
+            items = [items]
+        if not items:
+            return None
+        newest = max(items, key=lambda i: str(i.get("@year", "")))
+        return newest.get("$")
+
     @retry(wait=wait_exponential(min=1, max=30), stop=stop_after_attempt(3))
     async def get_journal_metrics(self, issn: str) -> dict:
         """Fetch journal-level metrics (CiteScore, SJR, SNIP).
@@ -198,9 +209,18 @@ class ScopusClient:
 
             entry = entries[0] if isinstance(entries, list) else entries
 
-            citescore_raw = entry.get("citeScoreCurrentMetric")
-            sjr_raw = entry.get("SJR")
-            snip_raw = entry.get("SNIP")
+            # The API nests these (verified 2026-09-25 against ISSN 01406736):
+            #   citeScoreYearInfoList: {"citeScoreCurrentMetric": "92.4", ...}
+            #   SJRList: {"SJR": [{"@year": "2025", "$": "14.821"}]}
+            #   SNIPList: {"SNIP": [{"@year": "2025", "$": "27.703"}]}
+            # Reading top-level keys returned None for every journal, so the
+            # CiteScore / quartile quality gate never actually filtered anything.
+            citescore_raw = (
+                (entry.get("citeScoreYearInfoList") or {}).get("citeScoreCurrentMetric")
+                or entry.get("citeScoreCurrentMetric")
+            )
+            sjr_raw = self._latest_metric(entry.get("SJRList"), "SJR") or entry.get("SJR")
+            snip_raw = self._latest_metric(entry.get("SNIPList"), "SNIP") or entry.get("SNIP")
 
             return {
                 "citescore": float(citescore_raw) if citescore_raw else None,
