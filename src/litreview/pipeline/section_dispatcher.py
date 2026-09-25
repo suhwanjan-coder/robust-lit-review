@@ -315,12 +315,18 @@ def generate_main_qmd(
     # see SKILL.md Stage 6), so the heading must be inserted here. Omitting
     # this means every section's content has no heading of its own and nests
     # under whatever heading precedes it in the assembled document.
+    # No year range in the title: it used to be hardcoded "(2016-2026)", which is
+    # false for any run whose search window differs (and there is no date filter
+    # by default). A topic that already contains a colon gets a dash, not a
+    # second colon.
+    title_text = f"{topic}{' — ' if ':' in topic else ': '}A Systematic Review".replace('"', "'")
+
     body_includes = "\n\n".join(
         f"{s.heading}\n\n{{{{< include sections/{s.filename} >}}}}" for s in sections
     )
 
     content = f"""---
-title: "{topic}: A Systematic Review (2016-2026)"
+title: "{title_text}"
 subtitle: "A Systematic Literature Review"
 date: "{date.today().isoformat()}"
 author: "Automated Literature Review Pipeline"

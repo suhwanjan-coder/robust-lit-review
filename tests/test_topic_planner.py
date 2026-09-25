@@ -184,6 +184,14 @@ def test_generate_main_qmd_include_list_matches_dynamic_sections(tmp_path):
     assert "# Pharmacotherapy\n\n{{< include sections/03-pharmacotherapy.qmd >}}" in qmd
 
 
+def test_generate_main_qmd_title_has_no_hardcoded_years_or_double_colon(tmp_path):
+    q = generate_main_qmd("GLP-1: efficacy and safety", _stats(), tmp_path)
+    assert "2016" not in q  # was a hardcoded "(2016-2026)" regardless of the run
+    assert 'title: "GLP-1: efficacy and safety — A Systematic Review"' in q
+    q2 = generate_main_qmd("Semaglutide", _stats(), tmp_path)
+    assert 'title: "Semaglutide: A Systematic Review"' in q2
+
+
 def test_generate_main_qmd_defaults_to_hlh_sections(tmp_path):
     qmd = generate_main_qmd("adult HLH", _stats(), tmp_path)
     assert "{{< include sections/08-discussion.qmd >}}" in qmd
