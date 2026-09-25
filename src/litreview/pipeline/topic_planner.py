@@ -131,14 +131,17 @@ def generate_taxonomy_task(
     output_path = output_dir / TAXONOMY_OUTPUT_FILENAME
 
     sample, article_sample = _sample_articles_for_prompt(articles, max_sample)
+    # Format outside the f-string: a multi-line replacement field inside an
+    # f-string is a SyntaxError before Python 3.12, and pyproject requires >=3.11.
+    body = PLANNING_PROMPT_TEMPLATE.format(
+        topic=topic,
+        sample_size=len(sample),
+        total_count=len(articles),
+        article_sample=article_sample,
+    )
     prompt = (
         f"{PLANNING_SYSTEM}\n\n"
-        f"{PLANNING_PROMPT_TEMPLATE.format(
-            topic=topic,
-            sample_size=len(sample),
-            total_count=len(articles),
-            article_sample=article_sample,
-        )}\n\n"
+        f"{body}\n\n"
         f"Write the JSON result to: {output_path}"
     )
 

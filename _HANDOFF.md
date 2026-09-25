@@ -3,6 +3,31 @@
 **2026-09-25 18:39 · ACHIH-MAIN (local) · Claude Code** — rolling single file, newest entry first (keep last 3).
 Written for a cold start in a **cloud session** (no access to the local machine, `.env`, or local drives).
 
+## Entry 2（最新）— 2026-09-25 晚：雲端可行性實測＋Python 3.11 相容修正（ACHIH-MAIN，Claude Code）
+
+**目前狀態**：本機 working tree 有 **2 個未 commit 的修改**（等阿志核准才 commit/push，push 到 main 需 bypass，已有 PR 保護）：
+`src/litreview/pipeline/topic_planner.py`、`src/litreview/pipeline/llm_extraction.py`。本機 `pytest tests/` 47 passed。
+
+**做了什麼／怎麼驗證**：
+- 修正 f-string 大括號內跨行呼叫 `.format(...)`——3.12 以前是 SyntaxError，但 `pyproject.toml` 宣告 `requires-python >=3.11`。本機只有 3.14 所以一直沒發現，是雲端 session（較舊 Python）跑 `pytest` 才撞到（`topic_planner.py:136`）。`llm_extraction.py` 是上游原有的同款寫法。改成先 `body = TEMPLATE.format(...)` 再組 f-string。
+- 驗證方式：AST 掃描全 repo（src/tests/scripts）找「f-string 大括號內含換行／同種外層引號」，修前對舊版 `topic_planner.py` 命中 1（掃描器有效），修後全 repo 0 命中。**尚未在真正的 3.11 直譯器上跑過**（本機無 3.11；`py -3.11` 的 rc=0 是管線吃掉錯誤碼的假訊號，不算數）。要確認需在雲端 session 重跑 `python3 -m pytest tests/ -q`。
+- 雲端實測（session「Connectivity smoke test」，環境 Default，網路 Trusted）：eutils.ncbi、api.unpaywall.org、doi.org、api.crossref.org、api.elsevier.com **全被出口代理擋（CONNECT 403）**，只有 PyPI 通。`UNPAYWALL_EMAIL` 已讀到。雲端無 Quarto、無 lualatex。
+
+**重要檔案**：`C:\Users\suhwa\dev\robust-lit-review\src\litreview\pipeline\{topic_planner,llm_extraction,enrichment,prisma_audit,section_dispatcher}.py`；`.claude/skills/lit-review/SKILL.md`。
+
+**決策與理由**：
+- 阿志問「雲端還是留本機」——建議**留本機**跑真實文獻回顧：本機有 Scopus＋PubMed key、掛台大 VPN 才有 Scopus 真摘要、Quarto＋TinyTeX 已裝。雲端價值只是 Cloud credits（2026/11/05 15:59 到期）。
+- 雲端環境設定：Environment variables 那格**明寫「能使用該環境的人都看得到，勿放機密」**，只放了 `UNPAYWALL_EMAIL`（非機密）；**不要在雲端設 Scopus key**（雲端非台大網段，摘要本來就是空的）。「API credentials」機制是代理注入 header、session 看不到值，與本專案「程式自己讀環境變數」的做法不相容，除非改程式，不值得。
+
+**失敗過／不要重試**：只在 Python 3.14 驗證相容性；把 API key 貼進 Environment variables；以為 Trusted 網路能連 PubMed／Elsevier（實測不能）。
+
+**下一步（具體）**：
+1. 若阿志同意：commit＋push 那兩個 f-string 修正，再開雲端 session 跑 `python3 -m pytest tests/ -q` 確認 3.11 通過。
+2. 雲端要跑文獻回顧，需把 Network access 改 **Custom**，加：`eutils.ncbi.nlm.nih.gov`、`api.unpaywall.org`、`doi.org`、`api.crossref.org`、`api.elsevier.com`（或選 Full）；但即使放行，Scopus 摘要在雲端仍是空的，且 render 要回本機。**阿志目前決定先不改**，等真有題目要在雲端跑再開。
+3. 不連外就能做的雲端工作（適合消耗 credits）：檢查 `llm_prisma_judge.py`（Stage 7 Method B）是否有同款寫死 HLH 問題、補測試、重構。
+
+**擱置／未決**：Embase key；修正是否回報上游 htlin222；雲端 Network access 是否放行；雲端 session「0925 ro-lit-review 轉雲端」停在 Waiting on permission、「Connectivity smoke test」已完成可忽略。
+
 ## Entry 1 — 2026-09-25: moving to cloud
 
 **1. Goal / scope.** Fork of `htlin222/robust-lit-review` (topic → PRISMA systematic-review manuscript).

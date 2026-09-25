@@ -73,15 +73,18 @@ def generate_extraction_tasks(
 
         output_path = output_dir / f"extract_{i:03d}_{article.citation_key}.json"
 
+        # Format outside the f-string: a multi-line replacement field inside an
+        # f-string is a SyntaxError before Python 3.12 (pyproject: >=3.11).
+        body = EXTRACTION_PROMPT_TEMPLATE.format(
+            title=article.title,
+            authors=', '.join(article.authors[:3]),
+            journal=article.journal,
+            year=article.year or 'n.d.',
+            abstract=article.abstract[:1500],
+        )
         prompt = (
             f"{EXTRACTION_SYSTEM}\n\n"
-            f"{EXTRACTION_PROMPT_TEMPLATE.format(
-                title=article.title,
-                authors=', '.join(article.authors[:3]),
-                journal=article.journal,
-                year=article.year or 'n.d.',
-                abstract=article.abstract[:1500],
-            )}\n\n"
+            f"{body}\n\n"
             f"Write the JSON result to: {output_path}"
         )
 
