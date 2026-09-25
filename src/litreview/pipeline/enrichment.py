@@ -535,7 +535,7 @@ async def fetch_missing_abstracts(
                         abs_parts = root.findall(".//AbstractText")
                         if abs_parts:
                             abstract = " ".join(
-                                (p.get("Label", "") + ": " if p.get("Label") else "") + (p.text or "")
+                                (p.get("Label", "") + ": " if p.get("Label") else "") + "".join(p.itertext())
                                 for p in abs_parts
                             )
                             if abstract.strip():

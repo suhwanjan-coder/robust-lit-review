@@ -164,7 +164,9 @@ class PubMedClient:
 
         def _text(el: ET.Element | None, path: str) -> str:
             node = el.find(path) if el is not None else None
-            return (node.text or "").strip() if node is not None else ""
+            # itertext(), not .text: .text stops at the first inline child element
+            # (<i>, <sub>, <sup>), silently truncating e.g. "HbA<sub>1c</sub>" to "HbA".
+            return "".join(node.itertext()).strip() if node is not None else ""
 
         # Title
         title = _text(article, "ArticleTitle")
@@ -184,7 +186,9 @@ class PubMedClient:
         abstract_el = article.find("Abstract") if article is not None else None
         if abstract_el is not None:
             for abs_text in abstract_el.findall("AbstractText"):
-                text = abs_text.text or ""
+                # itertext(): .text would cut the abstract at the first <sub>/<sup>/<i>
+                # (e.g. "HbA<sub>1c</sub>"), dropping every number that follows.
+                text = "".join(abs_text.itertext())
                 label = abs_text.get("Label")
                 if label:
                     abstract_parts.append(f"{label}: {text.strip()}")
