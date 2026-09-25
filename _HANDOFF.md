@@ -3,7 +3,26 @@
 **2026-09-25 18:39 · ACHIH-MAIN (local) · Claude Code** — rolling single file, newest entry first (keep last 3).
 Written for a cold start in a **cloud session** (no access to the local machine, `.env`, or local drives).
 
-## Entry 2（最新）— 2026-09-25 晚：雲端可行性實測＋Python 3.11 相容修正（ACHIH-MAIN，Claude Code）
+## Entry 3（最新）— 2026-09-25 20:34 · ACHIH-MAIN · Claude Code：Mounjaro（tirzepatide）回顧完成；下一步＝逐字中譯＋互動式閱讀網頁
+
+**目前狀態（已結案的部分）**：`output-tirzepatide\literature_review.pdf`（36 頁）＋`.docx` 已交付阿志。PRISMA 32/36、0 FAIL；引用 50/50 無孤兒；兩輪獨立 fact-check 約 430 個數字 0 錯誤、16 項措辭已改。**`output-tirzepatide\` 未進版控**（阿志未表態要不要當第三個範例，不要自行 commit）。程式修正 3 個 commit（`2c62e2c` Scopus 指標、`1676c9e` PubMed 截斷、`6079453` 標題年份）**已 push**，本機＝origin。`pytest tests/` 53 passed。
+
+**下一個 session 的主任務（阿志 2026-09-25 晚交辦）**：
+1. **逐字中譯版**：把 36 頁英文稿譯成繁體中文（台灣用語；依 core-rules 禁 AI 味詞、不掉字、專有名詞查台灣慣用譯法，拿不準就上網查，不自創）。來源＝`output-tirzepatide\sections\00–08 *.qmd`＋`checklist.qmd`（勿用 PDF 反解）。數字、引用鍵、表格結構原樣保留；引用維持 `[@key]` 讓 Quarto 排版。建議產出 `output-tirzepatide\zh\` 平行章節檔＋`literature_review_zh.qmd`，同樣用 Quarto 出 PDF/DOCX（中文 PDF 需確認 lualatex 中文字型）。**譯稿是阿志要讀的成品，模型不降級**（Sonnet 以上；長文可分章派工，每章一個 agent，交辦三要素照 task-templates.md）；譯完要有獨立 agent 做「抽段回譯／術語一致性／數字不變」核對，不能只靠譯者自報。
+2. **互動式閱讀網頁**：可閱讀、有分類、有主題（依 9 個 category／8 章導航、章內錨點、原文／中文切換或並排、參考文獻可點 DOI、搜尋）。單檔 HTML 優先（阿志習慣本機直接開）。**先看他既有的 Codex 作品再設計，不要另起爐灶**：`C:\Users\suhwa\Documents\Codex\FB 貼文回顧\_deliverables\READING_HOME.html`（標題「閱讀室｜達叔」，3.2 MB 單頁入口，連 19 個子頁；同資料夾有 `READING_MAINTENANCE.html/.md`、`READING_HOME.md`、`AI_DESIGN_ZERO_PROMPT_HANDOFF.md`、`dashu_private_portal\`、`dashu_reading_portable_*.zip`）——先讀 `READING_HOME.md` 與 `AI_DESIGN_ZERO_PROMPT_HANDOFF.md` 了解它的分類法與設計原則，新頁面最好能掛進那個入口。
+3. **長期願景（先記下，不是這次要做完）**：阿志想要一個自己的網域，把這類文章歸檔、方便查閱，主要給自己看，部分可共享；範圍要合併：科學班考題（`C:\Users\suhwa\dev\science-exam`）、這些文獻回顧、FB 貼文回顧（Codex 那份）、簡報資料夾裡的 PPT/PDF——「作品集」概念，分「私人」與「可公開」兩層（有些內容是別人的，不能公開）。**這是 K-1 情境**：架站方式（GitHub Pages／Cloudflare Pages／本機靜態＋Drive）、公私分層做法、與 Codex 專案的整合方式都是待他裁決的設計選擇，先列選項問他，不要直接選。
+
+**重要檔案**：`output-tirzepatide\{sections\*.qmd, literature_review.qmd, references.bib, selected.json, factcheck_04_05.md, factcheck_rest.md, plan\topic_plan.json}`。
+
+**已知限制（中譯與網頁都要如實帶著）**：選文依被引用數→**2026 年 0 篇**；僅摘要、無 RoB/GRADE/meta-analysis；規劃 agent 看的是選文前樣本，章節指示點名的部分研究未進 50 篇（Discussion 已交代）；PDF 參考文獻一處「≥」被吃掉（BibTeX 特殊字元，未修）。
+
+**尚未回寫 pipeline 的腳本層補救**（要不要回寫等阿志）：逐年搜尋（單次查詢只回最新年份）、以 DOI 補 Scopus 被引用數、以 ISSN 補 PubMed 文章期刊指標。腳本在 scratchpad（`tz_stage1.py` 等），session 結束即失，要回寫得重寫成 pipeline 程式。
+
+**不要重試／踩過的坑**：單次查詢；只信 `check-config`；離開台大網段 Scopus 摘要回 200 但空字串（先看 `curl https://api.ipify.org` 是否 140.112.x.x）；`sleep N` 串指令會被 harness 擋；**Python 字串裡的 Windows 路徑（`\U`、`\a`）會炸，一律用 Write 寫檔再拼接**（本 session 踩了兩次）；寫作 agent 會誤報「摘要仍被截斷」，用特徵字串全檔掃過才算數。
+
+**擱置／未決**：`output-tirzepatide\` 是否入版控；三項腳本層補救是否回寫；Embase；是否回報上游；雲端 credits 11/05 到期（真實回顧留本機）。
+
+## Entry 2 — 2026-09-25 晚：雲端可行性實測＋Python 3.11 相容修正（ACHIH-MAIN，Claude Code）
 
 **目前狀態**：本機 working tree 有 **2 個未 commit 的修改**（等阿志核准才 commit/push，push 到 main 需 bypass，已有 PR 保護）：
 `src/litreview/pipeline/topic_planner.py`、`src/litreview/pipeline/llm_extraction.py`。本機 `pytest tests/` 47 passed。
